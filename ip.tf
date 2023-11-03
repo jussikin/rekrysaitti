@@ -1,7 +1,8 @@
 # Reserve an external IP
-resource "google_compute_global_address" "website" {
+resource "google_compute_address" "website" {
   provider = google
   name     = "website-lb-ip"
+  network_tier = "STANDARD"
 }
 
 # Get the managed DNS zone
@@ -17,5 +18,5 @@ resource "google_dns_record_set" "website" {
   type         = "A"
   ttl          = 300
   managed_zone = data.google_dns_managed_zone.rekry.name
-  rrdatas      = [google_compute_global_address.website.address]
+  rrdatas      = [google_compute_address.website.address]
 }
