@@ -160,6 +160,13 @@ li {
   margin: 0;
 }
 
+.source-link {
+  margin: 0.85rem 0 0;
+  text-align: center;
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+
 @keyframes riseIn {
   from {
     opacity: 0;

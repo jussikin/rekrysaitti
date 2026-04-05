@@ -276,6 +276,8 @@ function buildModernHtml(data) {
     '        <li><a href="cv.pdf">PDF version (cv.pdf)</a></li>',
     "      </ul>",
     "    </aside>",
+    "",
+    "    <p class=\"source-link\">Source code: <a href=\"https://github.com/jussikin/rekrysaitti\">github.com/jussikin/rekrysaitti</a></p>",
     "  </main>",
     "</body>",
     "</html>",
