@@ -1,0 +1,140 @@
+:root {
+  --bg: #f7f4ef;
+  --panel: #fffdf9;
+  --ink: #1f1b16;
+  --muted: #5e544a;
+  --brand: #0f6d62;
+  --brand-soft: #d6eee9;
+  --line: #dfd7cd;
+  --shadow: 0 12px 30px rgba(27, 22, 15, 0.08);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  color: var(--ink);
+  background:
+    radial-gradient(circle at 10% 5%, #fff3de 0 18%, transparent 19%),
+    radial-gradient(circle at 90% 15%, #d6eee9 0 20%, transparent 21%),
+    linear-gradient(180deg, #f6f0e5 0%, var(--bg) 40%, #f2f6f8 100%);
+  font-family: "Alegreya Sans", "Trebuchet MS", "Segoe UI", sans-serif;
+  line-height: 1.5;
+}
+
+.page {
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 2.2rem 1rem 4rem;
+}
+
+.hero {
+  background: linear-gradient(135deg, #ffe4c4 0%, #fef7eb 35%, #dff3ef 100%);
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  box-shadow: var(--shadow);
+  padding: 1.8rem 1.3rem;
+  margin-bottom: 1.5rem;
+  animation: riseIn 600ms ease-out both;
+}
+
+.hero h1 {
+  margin: 0;
+  font-family: "Bitter", "Georgia", serif;
+  font-size: clamp(1.6rem, 4vw, 2.5rem);
+}
+
+.hero p {
+  margin: 0.35rem 0 0;
+  color: var(--muted);
+}
+
+section {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 1rem 1rem 1.1rem;
+  margin: 0 0 1rem;
+  box-shadow: var(--shadow);
+  animation: riseIn 700ms ease both;
+}
+
+h2 {
+  margin: 0 0 0.7rem;
+  color: var(--brand);
+  font-family: "Bitter", "Georgia", serif;
+  font-size: clamp(1.1rem, 2.2vw, 1.35rem);
+}
+
+ul {
+  margin: 0;
+  padding-left: 1.15rem;
+}
+
+li + li {
+  margin-top: 0.35rem;
+}
+
+a {
+  color: #0b5e92;
+}
+
+.entry li,
+li {
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 0.65rem;
+}
+
+.entry {
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 0.7rem;
+  background: linear-gradient(180deg, #fffdfa, #fbf7f1);
+}
+
+.entry h4 {
+  margin: 0;
+  font-size: 1rem;
+  line-height: 1.3;
+}
+
+.entry ul {
+  margin-top: 0.45rem;
+}
+
+.work .meta,
+.work .period {
+  margin: 0.25rem 0 0;
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+@keyframes riseIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 640px) {
+  .page {
+    padding: 1.1rem 0.7rem 2rem;
+  }
+
+  .hero,
+  section {
+    border-radius: 14px;
+  }
+}

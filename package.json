@@ -1,0 +1,8 @@
+{
+  "name": "rekrysaitti",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "build:cv": "node scripts/generate-site.js"
+  }
+}
