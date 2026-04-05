@@ -15,6 +15,7 @@
 - Generate site output with `npm run build:cv` (or `node scripts/generate-site.js`).
 - The generator reads `cv-data/cv.md` and writes:
   - `saitti/index.html` (modern page)
+  - `saitti/cv.pdf` (generated directly from Markdown data)
 
 ## Frontend/output notes
 

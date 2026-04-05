@@ -134,6 +134,32 @@ li {
   font-size: 0.95rem;
 }
 
+.info-box {
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: linear-gradient(180deg, #f1f8f6, #eef4f8);
+  box-shadow: var(--shadow);
+  padding: 0.8rem 0.95rem;
+  margin-top: 1rem;
+  font-size: 0.92rem;
+}
+
+.info-box h3 {
+  margin: 0;
+  color: var(--brand);
+  font-family: "Bitter", "Georgia", serif;
+  font-size: 1rem;
+}
+
+.info-box p {
+  margin: 0.35rem 0 0.45rem;
+  color: var(--muted);
+}
+
+.info-box ul {
+  margin: 0;
+}
+
 @keyframes riseIn {
   from {
     opacity: 0;
@@ -162,5 +188,34 @@ li {
   .profile-photo {
     width: 86px;
     height: 86px;
+  }
+}
+
+@media print {
+  body {
+    background: #fff;
+  }
+
+  .page {
+    max-width: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .hero,
+  section,
+  .entry,
+  .info-box {
+    break-inside: avoid-page;
+    page-break-inside: avoid;
+    box-shadow: none;
+  }
+
+  .grid {
+    display: block;
+  }
+
+  .entry {
+    margin-bottom: 0.5rem;
   }
 }

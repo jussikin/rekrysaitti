@@ -2,7 +2,12 @@
   "name": "rekrysaitti",
   "version": "1.0.0",
   "private": true,
+  "dependencies": {
+    "pdfkit": "^0.17.2"
+  },
   "scripts": {
-    "build:cv": "node scripts/generate-site.js"
+    "build:cv:html": "node scripts/generate-site.js",
+    "build:cv:pdf": "node scripts/generate-pdf.js",
+    "build:cv": "npm run build:cv:html && npm run build:cv:pdf"
   }
 }
