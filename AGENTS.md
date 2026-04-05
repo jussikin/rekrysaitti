@@ -14,8 +14,7 @@
 
 - Generate site output with `npm run build:cv` (or `node scripts/generate-site.js`).
 - The generator reads `cv-data/cv.md` and writes:
-  - `saitti/index.html` (classic page)
-  - `saitti/index-modern.html` (modern page)
+  - `saitti/index.html` (modern page)
 
 ## Frontend/output notes
 

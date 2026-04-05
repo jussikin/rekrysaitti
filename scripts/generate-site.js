@@ -3,8 +3,7 @@ const path = require("path");
 
 const rootDir = path.resolve(__dirname, "..");
 const dataPath = path.join(rootDir, "cv-data", "cv.md");
-const classicOutputPath = path.join(rootDir, "saitti", "index.html");
-const modernOutputPath = path.join(rootDir, "saitti", "index-modern.html");
+const outputPath = path.join(rootDir, "saitti", "index.html");
 
 const md = fs.readFileSync(dataPath, "utf8");
 
@@ -171,92 +170,6 @@ function sectionTitleFromKey(key) {
   return key.replace(/_/g, " ").replace(/\b\w/g, (c) => c.toUpperCase());
 }
 
-function renderClassicDlRow(term, description) {
-  return `  <dt>${formatText(term)}</dt>\n  <dd>${formatText(description)}</dd>`;
-}
-
-function buildClassicHtml(data) {
-  const basicLabels = {
-    domicile: "Domicile",
-    year_of_birth: "Year of Birth",
-    marital_status: "Marital status",
-    working_languages: "Working languages",
-  };
-
-  const basicRows = data.basic
-    .map((row) => renderClassicDlRow(basicLabels[row.key] || sectionTitleFromKey(row.key), row.value))
-    .join("\n");
-
-  const workRows = data.work
-    .map((entry) => renderClassicDlRow(entry.company || "", `${entry.role || ""}, ${entry.period || ""}`.replace(/^,\s*/, "").replace(/,\s*$/, "")))
-    .join("\n");
-
-  const techRows = data.tech
-    .map((entry) => renderClassicDlRow(entry.area || "", entry.details || ""))
-    .join("\n");
-
-  const courseRows = data.courses
-    .map((entry) => renderClassicDlRow(entry.course || "", entry.details || ""))
-    .join("\n");
-
-  const hobbyRows = data.hobbies
-    .map((entry) => {
-      const details = entry.details_list && entry.details_list.length
-        ? entry.details_list.join(", ")
-        : entry.details || "";
-      return renderClassicDlRow(entry.hobby || "", details);
-    })
-    .join("\n");
-
-  const contactRows = data.contact
-    .map((row) => renderClassicDlRow(sectionTitleFromKey(row.key), row.value))
-    .join("\n");
-
-  return [
-    "<html>",
-    "<head>",
-    '  <link REL="stylesheet" TYPE="text/css" href="style.css" />',
-    "  <title>CV jk</title>",
-    "</head>",
-    '<body background="background.gif">',
-    `  <h1>Curriculum Vitae - ${formatText(data.name)}</h1>`,
-    "",
-    "<h3>Basic data</h3>",
-    '<img src="larvi.jpg" align="right" alt="Portrait">',
-    "<dl>",
-    basicRows,
-    "</dl>",
-    "",
-    "<h3>Work experience</h3>",
-    "<dl>",
-    workRows,
-    "</dl>",
-    "",
-    "<h3>Technology expertise</h3>",
-    "<dl>",
-    techRows,
-    "</dl>",
-    "",
-    "<h3>Courses taken</h3>",
-    "<dl>",
-    courseRows,
-    "</dl>",
-    "",
-    "<h3>Hobbies &amp; etc.</h3>",
-    "<dl>",
-    hobbyRows,
-    "</dl>",
-    "",
-    "<h3>Contact details</h3>",
-    "<dl>",
-    contactRows,
-    "</dl>",
-    "</body>",
-    "</html>",
-    "",
-  ].join("\n");
-}
-
 function renderModernItems(items, titleKey, detailKey) {
   return items
     .map((item) => {
@@ -375,11 +288,8 @@ const data = {
   contact: parseSimpleList((byTitle["Contact Details"] || { lines: [] }).lines),
 };
 
-const classicHtml = buildClassicHtml(data);
 const modernHtml = buildModernHtml(data);
 
-fs.writeFileSync(classicOutputPath, classicHtml, "utf8");
-fs.writeFileSync(modernOutputPath, modernHtml, "utf8");
+fs.writeFileSync(outputPath, modernHtml, "utf8");
 
-process.stdout.write(`Generated ${path.relative(rootDir, classicOutputPath)} from ${path.relative(rootDir, dataPath)}\n`);
-process.stdout.write(`Generated ${path.relative(rootDir, modernOutputPath)} from ${path.relative(rootDir, dataPath)}\n`);
+process.stdout.write(`Generated ${path.relative(rootDir, outputPath)} from ${path.relative(rootDir, dataPath)}\n`);

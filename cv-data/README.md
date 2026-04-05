@@ -9,8 +9,7 @@ Generator usage:
 - Run `node scripts/generate-site.js`
 - Or run `npm run build:cv`
 - This reads `cv-data/cv.md` and rewrites:
-  - `saitti/index.html` (classic)
-  - `saitti/index-modern.html` (modern)
+  - `saitti/index.html` (modern)
 
 Notes:
 
