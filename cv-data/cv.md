@@ -11,45 +11,45 @@ name: Jussi Kinnunen
 
 ## Work Experience
 
-- company: Nobman Informatics Oy
-  role: Software developer
-  period: 1.9.1999 - 31.9.2000
-
-- company: IntStream Oy
-  role: Systems designer
-  period: 1.10.2000 - 30.2.2006
-
-- company: Elma Electronic Trading -> integrated into -> Itella Information Oy
-  role: Developer
-  period: 13.3.2006 - 30.9.2009
-
-- company: Nice Business Solutions Oy
-  role: Developer
-  period: 1.10.2009 - 5.4.2014
-
-- company: Posterfy Oy
-  role: Cloud Developer
-  period: 1.4.2014 - 21.6.2015
-
-- company: Opr-Vakuus Oy
-  role: Senior Software Developer
-  period: 13.8.2015 - 22.3.2017
-
-- company: Quattrofolia Oy
-  role: Senior Software Developer
-  period: 27.3.2017 - 1.10.2018
-
-- company: Amban Nordic Oy
-  role: Senior Consultant
-  period: 15.10.2018 - 28.1.2020
+- company: Wunderdog Oy
+  role: Senior Software Consultant
+  period: 3.4.2022 - present
 
 - company: Tulka Oy
   role: Senior Software Developer
   period: 1.2.2020 - 29.3.2022
 
-- company: Wunderdog Oy
-  role: Senior Software Consultant
-  period: 3.4.2022 - present
+- company: Amban Nordic Oy
+  role: Senior Consultant
+  period: 15.10.2018 - 28.1.2020
+
+- company: Quattrofolia Oy
+  role: Senior Software Developer
+  period: 27.3.2017 - 1.10.2018
+
+- company: Opr-Vakuus Oy
+  role: Senior Software Developer
+  period: 13.8.2015 - 22.3.2017
+
+- company: Posterfy Oy
+  role: Cloud Developer
+  period: 1.4.2014 - 21.6.2015
+
+- company: Nice Business Solutions Oy
+  role: Developer
+  period: 1.10.2009 - 5.4.2014
+
+- company: Elma Electronic Trading -> integrated into -> Itella Information Oy
+  role: Developer
+  period: 13.3.2006 - 30.9.2009
+
+- company: IntStream Oy
+  role: Systems designer
+  period: 1.10.2000 - 30.2.2006
+
+- company: Nobman Informatics Oy
+  role: Software developer
+  period: 1.9.1999 - 31.9.2000
 
 ## Technology Expertise
 
