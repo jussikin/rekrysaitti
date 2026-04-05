@@ -1,3 +1,4 @@
 terraform.*
 google.json
 .*
+node_modules/
