@@ -115,6 +115,46 @@ function humanizeKey(key) {
   return key.replace(/_/g, " ").replace(/\b\w/g, (c) => c.toUpperCase());
 }
 
+function hasText(value) {
+  return String(value || "").trim().length > 0;
+}
+
+function isFilledSimpleRow(row) {
+  return row && hasText(row.key) && hasText(row.value);
+}
+
+function isFilledEntry(entry, keys) {
+  if (!entry) {
+    return false;
+  }
+
+  if (keys.some((key) => hasText(entry[key]))) {
+    return true;
+  }
+
+  return Array.isArray(entry.details_list) && entry.details_list.some((line) => hasText(line));
+}
+
+function detailItems(entry, detailKey) {
+  function normalize(item) {
+    const text = String(item || "").trim();
+    if (!text) {
+      return "";
+    }
+    return text.charAt(0).toUpperCase() + text.slice(1);
+  }
+
+  if (Array.isArray(entry.details_list) && entry.details_list.length > 0) {
+    return entry.details_list.map(normalize).filter(Boolean);
+  }
+
+  const raw = String(entry[detailKey] || "");
+  return raw
+    .split(",")
+    .map(normalize)
+    .filter(Boolean);
+}
+
 function createData() {
   const lines = md.split(/\r?\n/);
   const sections = parseTopLevel(lines);
@@ -177,17 +217,29 @@ function renderPdf(data) {
     doc.moveDown(0.35);
   }
 
+  const basicRows = data.basic.filter(isFilledSimpleRow);
+  const workRows = data.work.filter((entry) => isFilledEntry(entry, ["role", "company", "period"]));
+  const techRows = data.tech.filter((entry) => isFilledEntry(entry, ["area", "details"]));
+  const courseRows = data.courses.filter((entry) => isFilledEntry(entry, ["course", "details"]));
+  const hobbyRows = data.hobbies.filter((entry) => isFilledEntry(entry, ["hobby", "details"]));
+  const contactRows = data.contact.filter(isFilledSimpleRow);
+  const subtitle = hasText(workRows[0] && workRows[0].role) ? workRows[0].role : "Curriculum Vitae";
+
   doc.font("Helvetica-Bold").fontSize(21).fillColor("#1f1b16").text(data.name);
-  doc.font("Helvetica").fontSize(11).fillColor("#57504a").text("Curriculum Vitae");
+  doc.font("Helvetica").fontSize(11).fillColor("#57504a").text(subtitle);
   doc.moveDown(0.6);
 
-  sectionTitle("Basic Data");
-  for (const row of data.basic) {
+  if (basicRows.length > 0) {
+    sectionTitle("Basic Data");
+  }
+  for (const row of basicRows) {
     keyValue(humanizeKey(row.key), row.value);
   }
 
-  sectionTitle("Work Experience");
-  for (const item of data.work) {
+  if (workRows.length > 0) {
+    sectionTitle("Work Experience");
+  }
+  for (const item of workRows) {
     ensureSpace(26);
     doc.font("Helvetica-Bold").fontSize(11).fillColor("#1f1b16").text(item.role || "");
     doc.font("Helvetica").fontSize(10.5).fillColor("#1f1b16").text(item.company || "");
@@ -195,22 +247,28 @@ function renderPdf(data) {
     lineBreak();
   }
 
-  sectionTitle("Technology Expertise");
-  for (const item of data.tech) {
+  if (techRows.length > 0) {
+    sectionTitle("Technology Expertise");
+  }
+  for (const item of techRows) {
     bullet(item.area || "");
-    if (item.details) {
-      detail(item.details);
+    for (const line of detailItems(item, "details")) {
+      bullet(line, 28);
     }
     lineBreak();
   }
 
-  sectionTitle("Courses Taken");
-  for (const item of data.courses) {
+  if (courseRows.length > 0) {
+    sectionTitle("Courses Taken");
+  }
+  for (const item of courseRows) {
     bullet(`${item.course || ""}: ${item.details || ""}`);
   }
 
-  sectionTitle("Hobbies and Other Interests");
-  for (const item of data.hobbies) {
+  if (hobbyRows.length > 0) {
+    sectionTitle("Hobbies and Other Interests");
+  }
+  for (const item of hobbyRows) {
     bullet(item.hobby || "");
     if (item.details_list && item.details_list.length) {
       for (const detail of item.details_list) {
@@ -222,8 +280,10 @@ function renderPdf(data) {
     lineBreak();
   }
 
-  sectionTitle("Contact Details");
-  for (const row of data.contact) {
+  if (contactRows.length > 0) {
+    sectionTitle("Contact Details");
+  }
+  for (const row of contactRows) {
     keyValue(humanizeKey(row.key), row.value);
   }
 

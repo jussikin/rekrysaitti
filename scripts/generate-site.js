@@ -170,13 +170,54 @@ function sectionTitleFromKey(key) {
   return key.replace(/_/g, " ").replace(/\b\w/g, (c) => c.toUpperCase());
 }
 
+function hasText(value) {
+  return String(value || "").trim().length > 0;
+}
+
+function isFilledSimpleRow(row) {
+  return row && hasText(row.key) && hasText(row.value);
+}
+
+function isFilledEntry(entry, keys) {
+  if (!entry) {
+    return false;
+  }
+
+  if (keys.some((key) => hasText(entry[key]))) {
+    return true;
+  }
+
+  return Array.isArray(entry.details_list) && entry.details_list.some((line) => hasText(line));
+}
+
+function detailItems(entry, detailKey) {
+  function normalize(item) {
+    const text = String(item || "").trim();
+    if (!text) {
+      return "";
+    }
+    return text.charAt(0).toUpperCase() + text.slice(1);
+  }
+
+  if (Array.isArray(entry.details_list) && entry.details_list.length > 0) {
+    return entry.details_list.map(normalize).filter(Boolean);
+  }
+
+  const raw = String(entry[detailKey] || "");
+  return raw
+    .split(",")
+    .map(normalize)
+    .filter(Boolean);
+}
+
 function renderModernItems(items, titleKey, detailKey) {
   return items
     .map((item) => {
       const title = formatText(item[titleKey] || "");
-      const details = item.details_list && item.details_list.length
-        ? item.details_list.map((line) => `<li>${formatText(line)}</li>`).join("")
-        : `<li>${formatText(item[detailKey] || "")}</li>`;
+      const detailsArray = detailItems(item, detailKey);
+      const details = detailsArray.length > 0
+        ? detailsArray.map((line) => `<li>${formatText(line)}</li>`).join("")
+        : "";
 
       return `<article class="entry"><h4>${title}</h4><ul>${details}</ul></article>`;
     })
@@ -184,11 +225,19 @@ function renderModernItems(items, titleKey, detailKey) {
 }
 
 function buildModernHtml(data) {
-  const basic = data.basic
+  const basicRows = data.basic.filter(isFilledSimpleRow);
+  const workRows = data.work.filter((entry) => isFilledEntry(entry, ["role", "company", "period"]));
+  const techRows = data.tech.filter((entry) => isFilledEntry(entry, ["area", "details"]));
+  const courseRows = data.courses.filter((entry) => isFilledEntry(entry, ["course", "details"]));
+  const hobbyRows = data.hobbies.filter((entry) => isFilledEntry(entry, ["hobby", "details"]));
+  const contactRows = data.contact.filter(isFilledSimpleRow);
+  const subtitle = hasText(workRows[0] && workRows[0].role) ? workRows[0].role : "Curriculum Vitae";
+
+  const basic = basicRows
     .map((row) => `<li><strong>${sectionTitleFromKey(row.key)}:</strong> ${formatText(row.value)}</li>`)
     .join("\n");
 
-  const work = data.work
+  const work = workRows
     .map((entry) => {
       const role = formatText(entry.role || "");
       const company = formatText(entry.company || "");
@@ -197,13 +246,87 @@ function buildModernHtml(data) {
     })
     .join("\n");
 
-  const tech = renderModernItems(data.tech, "area", "details");
-  const courses = renderModernItems(data.courses, "course", "details");
-  const hobbies = renderModernItems(data.hobbies, "hobby", "details");
+  const tech = renderModernItems(techRows, "area", "details");
+  const courses = renderModernItems(courseRows, "course", "details");
+  const hobbies = renderModernItems(hobbyRows, "hobby", "details");
 
-  const contact = data.contact
+  const contact = contactRows
     .map((row) => `<li><strong>${sectionTitleFromKey(row.key)}:</strong> ${formatText(row.value)}</li>`)
     .join("\n");
+
+  const contentSections = [];
+
+  if (basicRows.length > 0) {
+    contentSections.push(
+      "    <section>",
+      "      <h2>Basic Data</h2>",
+      "      <ul>",
+      basic,
+      "      </ul>",
+      "    </section>",
+      ""
+    );
+  }
+
+  if (workRows.length > 0) {
+    contentSections.push(
+      "    <section>",
+      "      <h2>Work Experience</h2>",
+      "      <div class=\"grid\">",
+      work,
+      "      </div>",
+      "    </section>",
+      ""
+    );
+  }
+
+  if (techRows.length > 0) {
+    contentSections.push(
+      "    <section>",
+      "      <h2>Technology Expertise</h2>",
+      "      <div class=\"grid\">",
+      tech,
+      "      </div>",
+      "    </section>",
+      ""
+    );
+  }
+
+  if (courseRows.length > 0) {
+    contentSections.push(
+      "    <section>",
+      "      <h2>Courses</h2>",
+      "      <div class=\"grid\">",
+      courses,
+      "      </div>",
+      "    </section>",
+      ""
+    );
+  }
+
+  if (hobbyRows.length > 0) {
+    contentSections.push(
+      "    <section>",
+      "      <h2>Hobbies</h2>",
+      "      <div class=\"grid\">",
+      hobbies,
+      "      </div>",
+      "    </section>",
+      ""
+    );
+  }
+
+  if (contactRows.length > 0) {
+    contentSections.push(
+      "    <section>",
+      "      <h2>Contact</h2>",
+      "      <ul>",
+      contact,
+      "      </ul>",
+      "    </section>",
+      ""
+    );
+  }
 
   return [
     "<!doctype html>",
@@ -220,53 +343,13 @@ function buildModernHtml(data) {
     "      <div class=\"hero-content\">",
     "        <div>",
     `          <h1>${escapeHtml(data.name)}</h1>`,
-    "          <p>Senior software consultant</p>",
+    `          <p>${formatText(subtitle)}</p>`,
     "        </div>",
     '        <img class="profile-photo" src="larvi.jpg" alt="Portrait of Jussi Kinnunen">',
     "      </div>",
     "    </header>",
     "",
-    "    <section>",
-    "      <h2>Basic Data</h2>",
-    "      <ul>",
-    basic,
-    "      </ul>",
-    "    </section>",
-    "",
-    "    <section>",
-    "      <h2>Work Experience</h2>",
-    "      <div class=\"grid\">",
-    work,
-    "      </div>",
-    "    </section>",
-    "",
-    "    <section>",
-    "      <h2>Technology Expertise</h2>",
-    "      <div class=\"grid\">",
-    tech,
-    "      </div>",
-    "    </section>",
-    "",
-    "    <section>",
-    "      <h2>Courses</h2>",
-    "      <div class=\"grid\">",
-    courses,
-    "      </div>",
-    "    </section>",
-    "",
-    "    <section>",
-    "      <h2>Hobbies</h2>",
-    "      <div class=\"grid\">",
-    hobbies,
-    "      </div>",
-    "    </section>",
-    "",
-    "    <section>",
-    "      <h2>Contact</h2>",
-    "      <ul>",
-    contact,
-    "      </ul>",
-    "    </section>",
+    ...contentSections,
     "",
     "    <aside class=\"info-box\" aria-label=\"CV source and formats\">",
     "      <h3>CV Formats</h3>",

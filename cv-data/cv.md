@@ -8,11 +8,12 @@ name: Jussi Kinnunen
 - year_of_birth: 1977
 - marital_status: Married, no kids
 - working_languages: English, Finnish
+- linkedin: https://www.linkedin.com/in/jussi-kinnunen-99b109/
 
 ## Work Experience
 
 - company: Wunderdog Oy
-  role: Senior Software Consultant
+  role: Lead Consultant, Technology
   period: 3.4.2022 - present
 
 - company: Tulka Oy
@@ -53,66 +54,49 @@ name: Jussi Kinnunen
 
 ## Technology Expertise
 
-- area: Node.js application design, development, and maintenance
-  details: Node-RED, Promises, PM2, Express
+- area: Core languages and runtime
+  details: JavaScript, TypeScript, Node.js, Java, Python, Kotlin, C, PHP, Perl, Scala
 
-- area: Single page application design
-  details: REST API design, React and Angular implementations
+- area: Backend and API architecture
+  details: Spring, Spring Boot, OAuth 2.0, OAuth/OIDC, API development, software architecture, system integration
 
-- area: Java application design, development, and maintenance
-  details: Servlet, EJB, JDBC, ESB, Applet, MIDlet, XML-RPC, Ant, Maven, Eclipse
+- area: Frontend and mobile
+  details: React, React Native, Angular, Redux Thunk, Electron, interface design
 
-- area: PHP application design, development, and maintenance
-  details: Includes PHP program and module installations
+- area: Cloud platforms
+  details: Amazon Web Services (AWS), Google Cloud Platform (GCP), AWS Lambda, AWS ECS, AWS Secrets Manager, RDS, ElastiCache
 
-- area: Database design, development, and maintenance
-  details: SQL97, MySQL, Oracle, Postgres, DB2, Fedora DS
+- area: Containers and Kubernetes
+  details: Docker, Kubernetes, Google Kubernetes Engine (GKE), Azure Kubernetes Service (AKS)
 
-- area: Programming in various environments
-  details: C, Perl, Python, TCL, .NET, etc.
+- area: DevOps and automation
+  details: GitLab CI, Jenkins, Atlassian Bamboo, Ansible, Terraform, Build automation, Deployment automation
 
-- area: Documentation methods
-  details: Twiki, UML, Javadoc, Jira, Confluence
+- area: Databases and data platforms
+  details: PostgreSQL, MySQL, Oracle, Microsoft SQL Server, IBM DB2, InfluxDB, Redis, FedoraDS, LDAP, Influx DB
 
-- area: Cloud platforms, configuration, and usage
-  details: Amazon, VMware ESX, Elisa Ecloud, Upcloud, Ansible, GCP
+- area: Integration and enterprise technologies
+  details: XML, XSLT, Sonic ESB, software development lifecycle, Scrum
 
-- area: Container orchestration
-  details: Kubernetes, Docker
+- area: Domain expertise
+  details: Gaming industry, insurance industry, credit products, energy trade, healthcare, Digital Signage, Edifact interchange
 
-- area: Linux / Unix
-  details: Linux installation and maintenance. Installation and configuration of server software. Application programming experience on AIX, Linux, HP-UX, and Solaris.
-
-- area: Network infrastructure expertise
-  details: IP protocols, LANs, firewalls, security, and integration
-
-- area: Cryptographic methods
-  details: PKI, GPG, TLS, symmetrical methods, OTP
-
-- area: Software integrations
-  details: EDI, XML, PEPPOL, ESB
-
-## Courses Taken
-
-- course: Sonic ESB
-  details: Bootcamp and development workshop
-
-- course: Java
-  details: Java 7, new features
-
-- course: Linux
-  details: Systems programming
+- area: Operating systems and infrastructure
+  details: Linux, AIX, virtual servers, virtual networks, Nginx
 
 ## Hobbies and Other Interests
 
 - hobby: Photography
-  details: Analog and digital photography, development, and post production
+  details: Analog and digital photography, development, post production
 
-- hobby: Electric skateboarding, snowboarding
-  details: Whenever possible
+- hobby: Boardsports
+  details: Trampa, Snowbarding
 
-- hobby: Electronics and home automation
-  details: Arduino, MSP430, hacking, Node-RED, Raspberry Pi, circuit design and prototyping, 3D printing
+- hobby: Electronics
+  details: Arduino, MSP430, hacking, Node-RED, Raspberry Pi, circuit desing, prototyping, RP2040, RP2350
+
+- hobby: Crafting
+  details: 3D printing, Laser cutting, Cad Modelling
 
 - hobby: Literature
   details:
@@ -123,11 +107,11 @@ name: Jussi Kinnunen
     - Robert Ervin Howard
     - History, popular science
 
-- hobby: Cigars
-  details: Cuba and Dominican Republic
-
 - hobby: Coding
   details: GitHub repositories: https://github.com/jussikin/
+
+- hobby: Homeautomation
+  details: greenhouse automation, energy harvesting, monitoring, various home displays 
 
 ## Contact Details
 
