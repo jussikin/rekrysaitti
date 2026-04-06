@@ -2,6 +2,10 @@
 
 name: Jussi Kinnunen
 
+## Introduction
+
+- text: Lead full-stack consultant with long hands-on experience in building and modernizing business-critical systems. Strong delivery focus across backend, cloud, integrations, and practical architecture. I help teams turn complex requirements into reliable, maintainable software.
+
 ## Basic Data
 
 - domicile: Siuntio
@@ -71,6 +75,9 @@ name: Jussi Kinnunen
 
 - area: DevOps and automation
   details: GitLab CI, Jenkins, Atlassian Bamboo, Ansible, Terraform, Build automation, Deployment automation
+
+- area: AI-assisted development
+  details: Agentic coding workflows, OpenCode, IntelliJ Junie
 
 - area: Databases and data platforms
   details: PostgreSQL, MySQL, Oracle, Microsoft SQL Server, IBM DB2, InfluxDB, Redis, FedoraDS, LDAP, Influx DB

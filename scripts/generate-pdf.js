@@ -162,6 +162,7 @@ function createData() {
 
   return {
     name: getName(lines),
+    introduction: parseSimpleList((byTitle["Introduction"] || { lines: [] }).lines),
     basic: parseSimpleList((byTitle["Basic Data"] || { lines: [] }).lines),
     work: parseEntries((byTitle["Work Experience"] || { lines: [] }).lines),
     tech: parseEntries((byTitle["Technology Expertise"] || { lines: [] }).lines),
@@ -218,6 +219,7 @@ function renderPdf(data) {
   }
 
   const basicRows = data.basic.filter(isFilledSimpleRow);
+  const introRows = data.introduction.filter((row) => isFilledSimpleRow(row) && hasText(row.value));
   const workRows = data.work.filter((entry) => isFilledEntry(entry, ["role", "company", "period"]));
   const techRows = data.tech.filter((entry) => isFilledEntry(entry, ["area", "details"]));
   const courseRows = data.courses.filter((entry) => isFilledEntry(entry, ["course", "details"]));
@@ -228,6 +230,14 @@ function renderPdf(data) {
   doc.font("Helvetica-Bold").fontSize(21).fillColor("#1f1b16").text(data.name);
   doc.font("Helvetica").fontSize(11).fillColor("#57504a").text(subtitle);
   doc.moveDown(0.6);
+
+  if (introRows.length > 0) {
+    sectionTitle("Introduction");
+  }
+  for (const row of introRows) {
+    detail(row.value, 16);
+    lineBreak();
+  }
 
   if (basicRows.length > 0) {
     sectionTitle("Basic Data");

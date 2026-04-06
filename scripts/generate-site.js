@@ -225,6 +225,7 @@ function renderModernItems(items, titleKey, detailKey) {
 }
 
 function buildModernHtml(data) {
+  const introRows = data.introduction.filter((row) => isFilledSimpleRow(row) && hasText(row.value));
   const basicRows = data.basic.filter(isFilledSimpleRow);
   const workRows = data.work.filter((entry) => isFilledEntry(entry, ["role", "company", "period"]));
   const techRows = data.tech.filter((entry) => isFilledEntry(entry, ["area", "details"]));
@@ -235,6 +236,10 @@ function buildModernHtml(data) {
 
   const basic = basicRows
     .map((row) => `<li><strong>${sectionTitleFromKey(row.key)}:</strong> ${formatText(row.value)}</li>`)
+    .join("\n");
+
+  const intro = introRows
+    .map((row) => `<p>${formatText(row.value)}</p>`)
     .join("\n");
 
   const work = workRows
@@ -255,6 +260,16 @@ function buildModernHtml(data) {
     .join("\n");
 
   const contentSections = [];
+
+  if (introRows.length > 0) {
+    contentSections.push(
+      "    <section>",
+      "      <h2>Introduction</h2>",
+      intro,
+      "    </section>",
+      ""
+    );
+  }
 
   if (basicRows.length > 0) {
     contentSections.push(
@@ -374,6 +389,7 @@ const byTitle = Object.fromEntries(sections.map((s) => [s.title, s]));
 
 const data = {
   name: getName(lines) || "Unnamed",
+  introduction: parseSimpleList((byTitle["Introduction"] || { lines: [] }).lines),
   basic: parseSimpleList((byTitle["Basic Data"] || { lines: [] }).lines),
   work: parseEntries((byTitle["Work Experience"] || { lines: [] }).lines),
   tech: parseEntries((byTitle["Technology Expertise"] || { lines: [] }).lines),
