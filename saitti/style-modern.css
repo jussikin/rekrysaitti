@@ -128,10 +128,20 @@ li {
 }
 
 .work .meta,
-.work .period {
+.work .period,
+.case .meta,
+.case .period {
   margin: 0.25rem 0 0;
   color: var(--muted);
   font-size: 0.95rem;
+}
+
+.grid.cases {
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+}
+
+.case ul {
+  margin-top: 0.55rem;
 }
 
 .info-box {

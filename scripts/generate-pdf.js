@@ -165,6 +165,7 @@ function createData() {
     introduction: parseSimpleList((byTitle["Introduction"] || { lines: [] }).lines),
     basic: parseSimpleList((byTitle["Basic Data"] || { lines: [] }).lines),
     work: parseEntries((byTitle["Work Experience"] || { lines: [] }).lines),
+    cases: parseEntries((byTitle["Case Files"] || { lines: [] }).lines),
     tech: parseEntries((byTitle["Technology Expertise"] || { lines: [] }).lines),
     courses: parseEntries((byTitle["Courses Taken"] || { lines: [] }).lines),
     hobbies: parseEntries((byTitle["Hobbies and Other Interests"] || { lines: [] }).lines),
@@ -221,6 +222,7 @@ function renderPdf(data) {
   const basicRows = data.basic.filter(isFilledSimpleRow);
   const introRows = data.introduction.filter((row) => isFilledSimpleRow(row) && hasText(row.value));
   const workRows = data.work.filter((entry) => isFilledEntry(entry, ["role", "company", "period"]));
+  const caseRows = data.cases.filter((entry) => isFilledEntry(entry, ["case", "context", "role", "period"]));
   const techRows = data.tech.filter((entry) => isFilledEntry(entry, ["area", "details"]));
   const courseRows = data.courses.filter((entry) => isFilledEntry(entry, ["course", "details"]));
   const hobbyRows = data.hobbies.filter((entry) => isFilledEntry(entry, ["hobby", "details"]));
@@ -254,6 +256,27 @@ function renderPdf(data) {
     doc.font("Helvetica-Bold").fontSize(11).fillColor("#1f1b16").text(item.role || "");
     doc.font("Helvetica").fontSize(10.5).fillColor("#1f1b16").text(item.company || "");
     doc.font("Helvetica").fontSize(10).fillColor("#57504a").text(item.period || "");
+    lineBreak();
+  }
+
+  if (caseRows.length > 0) {
+    sectionTitle("Case Files");
+  }
+  for (const item of caseRows) {
+    ensureSpace(40);
+    doc.font("Helvetica-Bold").fontSize(11).fillColor("#1f1b16").text(item.case || "");
+    if (hasText(item.context)) {
+      doc.font("Helvetica").fontSize(10.5).fillColor("#1f1b16").text(item.context);
+    }
+    if (hasText(item.role)) {
+      doc.font("Helvetica").fontSize(10.5).fillColor("#1f1b16").text(item.role);
+    }
+    if (hasText(item.period)) {
+      doc.font("Helvetica").fontSize(10).fillColor("#57504a").text(item.period);
+    }
+    for (const line of detailItems(item, "details")) {
+      bullet(line, 28);
+    }
     lineBreak();
   }
 

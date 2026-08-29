@@ -224,10 +224,28 @@ function renderModernItems(items, titleKey, detailKey) {
     .join("\n");
 }
 
+function renderCases(items) {
+  return items
+    .map((item) => {
+      const title = formatText(item.case || "");
+      const context = hasText(item.context) ? `<p class="meta">${formatText(item.context)}</p>` : "";
+      const role = hasText(item.role) ? `<p class="meta">${formatText(item.role)}</p>` : "";
+      const period = hasText(item.period) ? `<p class="period">${formatText(item.period)}</p>` : "";
+      const detailsArray = detailItems(item, "details");
+      const details = detailsArray.length > 0
+        ? `<ul>${detailsArray.map((line) => `<li>${formatText(line)}</li>`).join("")}</ul>`
+        : "";
+
+      return `<article class="entry case"><h4>${title}</h4>${context}${role}${period}${details}</article>`;
+    })
+    .join("\n");
+}
+
 function buildModernHtml(data) {
   const introRows = data.introduction.filter((row) => isFilledSimpleRow(row) && hasText(row.value));
   const basicRows = data.basic.filter(isFilledSimpleRow);
   const workRows = data.work.filter((entry) => isFilledEntry(entry, ["role", "company", "period"]));
+  const caseRows = data.cases.filter((entry) => isFilledEntry(entry, ["case", "context", "role", "period"]));
   const techRows = data.tech.filter((entry) => isFilledEntry(entry, ["area", "details"]));
   const courseRows = data.courses.filter((entry) => isFilledEntry(entry, ["course", "details"]));
   const hobbyRows = data.hobbies.filter((entry) => isFilledEntry(entry, ["hobby", "details"]));
@@ -251,6 +269,7 @@ function buildModernHtml(data) {
     })
     .join("\n");
 
+  const cases = renderCases(caseRows);
   const tech = renderModernItems(techRows, "area", "details");
   const courses = renderModernItems(courseRows, "course", "details");
   const hobbies = renderModernItems(hobbyRows, "hobby", "details");
@@ -289,6 +308,18 @@ function buildModernHtml(data) {
       "      <h2>Work Experience</h2>",
       "      <div class=\"grid\">",
       work,
+      "      </div>",
+      "    </section>",
+      ""
+    );
+  }
+
+  if (caseRows.length > 0) {
+    contentSections.push(
+      "    <section>",
+      "      <h2>Case Files</h2>",
+      "      <div class=\"grid cases\">",
+      cases,
       "      </div>",
       "    </section>",
       ""
@@ -392,6 +423,7 @@ const data = {
   introduction: parseSimpleList((byTitle["Introduction"] || { lines: [] }).lines),
   basic: parseSimpleList((byTitle["Basic Data"] || { lines: [] }).lines),
   work: parseEntries((byTitle["Work Experience"] || { lines: [] }).lines),
+  cases: parseEntries((byTitle["Case Files"] || { lines: [] }).lines),
   tech: parseEntries((byTitle["Technology Expertise"] || { lines: [] }).lines),
   courses: parseEntries((byTitle["Courses Taken"] || { lines: [] }).lines),
   hobbies: parseEntries((byTitle["Hobbies and Other Interests"] || { lines: [] }).lines),

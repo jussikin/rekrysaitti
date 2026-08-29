@@ -4,7 +4,7 @@ name: Jussi Kinnunen
 
 ## Introduction
 
-- text: Lead full-stack consultant with long hands-on experience in building and modernizing business-critical systems. Strong delivery focus across backend, cloud, integrations, and practical architecture. I help teams turn complex requirements into reliable, maintainable software.
+- text: Lead full-stack consultant with long hands-on experience in building and modernizing business-critical systems - including cloud backends for connected device fleets, from content distribution to sensor telemetry. Strong delivery focus across backend, cloud, integrations, and practical architecture. Hardware is also a hobby: I design, prototype and run my own home automation and embedded projects.
 
 ## Basic Data
 
@@ -55,6 +55,29 @@ name: Jussi Kinnunen
 - company: Nobman Informatics Oy
   role: Software developer
   period: 1.9.1999 - 31.9.2000
+
+## Case Files
+
+- case: Posterfy - Connected fleet of low-energy e-paper devices
+  context: Digital signage startup, 5 people
+  role: Cloud Developer, sole owner of the backend
+  period: 2014 - 2015
+  details:
+    - Sole responsibility for the design, implementation and maintenance of the cloud backend serving the device fleet
+    - Distributed display content to low-energy e-paper devices deployed in the field
+    - Ingested sensor telemetry from the devices, processed it and reacted to it automatically
+    - Startup closed after it was unable to raise follow-on funding
+
+- case: Veikkaus - Point-of-sale environment for lottery and betting
+  context: Coupon-based lottery and betting games; Electron client with Kotlin/Spring backends
+  role: Lead Consultant, Technology
+  period: 2022 - present
+  details:
+    - Built user interfaces and backend integrations for the new Milli product
+    - Integrated a new user identification system and developed the user interfaces for it
+    - Root cause analysis of production problems
+    - Infrastructure development with Terraform and deployment management
+    - Shared DevOps duty across the team - taking turns releasing to production and developing the pipelines and infrastructure
 
 ## Technology Expertise
 
