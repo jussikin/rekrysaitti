@@ -4,6 +4,7 @@ const path = require("path");
 const rootDir = path.resolve(__dirname, "..");
 const dataPath = path.join(rootDir, "cv-data", "cv.md");
 const outputPath = path.join(rootDir, "saitti", "index.html");
+const markdownCopyPath = path.join(rootDir, "saitti", "cv.md");
 
 const md = fs.readFileSync(dataPath, "utf8");
 
@@ -401,7 +402,7 @@ function buildModernHtml(data) {
     "      <h3>CV Formats</h3>",
     "      <p>For automated edits or agent workflows, use the Markdown source as the single source of truth.</p>",
     "      <ul>",
-    '        <li><a href="../cv-data/cv.md">Markdown source (cv.md)</a></li>',
+    '        <li><a href="cv.md">Markdown source (cv.md)</a></li>',
     '        <li><a href="cv.pdf">PDF version (cv.pdf)</a></li>',
     "      </ul>",
     "    </aside>",
@@ -433,5 +434,7 @@ const data = {
 const modernHtml = buildModernHtml(data);
 
 fs.writeFileSync(outputPath, modernHtml, "utf8");
+fs.copyFileSync(dataPath, markdownCopyPath);
 
 process.stdout.write(`Generated ${path.relative(rootDir, outputPath)} from ${path.relative(rootDir, dataPath)}\n`);
+process.stdout.write(`Copied ${path.relative(rootDir, dataPath)} to ${path.relative(rootDir, markdownCopyPath)}\n`);

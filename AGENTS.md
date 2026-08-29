@@ -16,6 +16,7 @@
 - The generator reads `cv-data/cv.md` and writes:
   - `saitti/index.html` (modern page)
   - `saitti/cv.pdf` (generated directly from Markdown data)
+  - `saitti/cv.md` (copy of the source, so the page can link it inside the deployed directory)
 
 ## Frontend/output notes
 
