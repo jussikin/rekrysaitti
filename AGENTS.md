@@ -23,6 +23,12 @@
 - URL rendering is intentionally compact (labels like `github.com/jussikin`) to avoid overflow in cards.
 - Do not hand-edit generated HTML as the build step will overwrite it.
 
+## Deployment
+
+- Deploy with `npm run deploy` (builds, then copies `saitti/` contents to the server).
+- Target: `admin@10.100.100.5:/home/admin/rekrysaitti/saitti` over scp, key-based auth.
+- Nginx on that host is already configured and serves the directory; no server-side steps needed.
+
 ## Git/workspace notes
 
 - Terraform files were intentionally removed from this project and are no longer needed.

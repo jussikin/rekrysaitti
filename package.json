@@ -8,6 +8,7 @@
   "scripts": {
     "build:cv:html": "node scripts/generate-site.js",
     "build:cv:pdf": "node scripts/generate-pdf.js",
-    "build:cv": "npm run build:cv:html && npm run build:cv:pdf"
+    "build:cv": "npm run build:cv:html && npm run build:cv:pdf",
+    "deploy": "npm run build:cv && scp -p saitti/* admin@10.100.100.5:/home/admin/rekrysaitti/saitti/"
   }
 }
